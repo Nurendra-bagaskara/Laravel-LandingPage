@@ -12,19 +12,19 @@ class ContactController extends Controller
     //post halaman contact
     public function store(Request $request)
     {
-      
-        $validator = Validator::make($request->all(),
-            [
-                'nama' => 'required',
-                'email' => 'required',
-                'Message' => 'required',
+     
+        // $validator = Validator::make($request->all(),
+        //     [
+        //         'nama' => 'required',
+        //         'email' => 'required',
+        //         'Message' => 'required',
 
-            ]
-        );
+        //     ]
+        // );
 
-        if($validator -> fails()) {
-            return Response() -> json($validator->errors());
-        }
+        // if($validator -> fails()) {
+        //     return Response() -> json($validator->errors());
+        // }
 
         $store = Contact::create([
             'nama' =>$request->nama,

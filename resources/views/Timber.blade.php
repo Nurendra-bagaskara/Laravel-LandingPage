@@ -27,6 +27,9 @@ http://miradontsoa.com
     <meta name="twitter:description" content="Description of the page" />
     <meta name="twitter:image" content="/img/bg-default.jpg" />
 
+    <!-- token jquery -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <!-- Facebook Meta -->
     <meta property="og:url" content="your website url here" />
     <meta property="og:title" content="Page Title" />
@@ -40,6 +43,8 @@ http://miradontsoa.com
 
     <!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
     <!-- Web fonts and Web Icons -->
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{asset('fonts/opensans/stylesheet.css')}}" />
     <link rel="stylesheet" href="{{asset('fonts/montserrat/stylesheet.css')}}" />
     <link rel="stylesheet" href="{{asset('fonts/playfair/stylesheet.css')}}" />
@@ -64,6 +69,9 @@ http://miradontsoa.com
     <link rel="stylesheet" href="{{asset('css/style-color2.css')}}" />
 
     <script src="{{asset('js/vendor/modernizr-2.7.1.min.js')}}"></script>
+    <!-- link jquery  -->
+    <!-- <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script> -->
+    <!-- <script src="{{asset('js/jquery.main.js')}}"></script> -->
   </head>
 
   <body id="menu" class="body-page">
@@ -352,6 +360,7 @@ http://miradontsoa.com
                             Decking is made of ironwood, bengkirai, merbau, keruing, etc. Decking is made for indoor and outdoor spaces that add value to your home and can be adapted to your needs. Our selected materials can be durable and
                             strong, easy and affordable maintenance, have better indoor air quality, are cost effective, colours don't fade quickly and can be renewed.
                           </p>
+                          <hr class="border-light">
                         </div>
                       </div>
                     </div>
@@ -391,13 +400,14 @@ http://miradontsoa.com
                       <div class="col-12 col-md-12 col-lg-8 text-right center-v">
                         <div class="">
                           <!-- title and description -->
-                          <div class="title-desc">
+                          <div class="title-desc" align="right">
                             <div class="anim-2">
                               <h2 class="display-4 display-title display-decor">Door & Doorjamb</h2>
                               <p>
                                 Doors made of wood have long been used and are suitable for those who want to create a natural impression. Doors made of wood also have various advantages, namely weather resistance, easy to shape according
                                 to the house's character, and suitable for all types of homes.
                               </p>
+                              <hr class="border-light">
                             </div>
                           </div>
 
@@ -444,7 +454,7 @@ http://miradontsoa.com
                             occupants of the house; for example, when falling, the pain caused is not as painful as falling on a ceramic floor surface because the wooden floor is relatively soft and also provides comfort because the nature
                             of the wooden floor tends to be warm.
                           </p>
-                          <!-- <hr class="border light" /> -->
+                          <hr class="border light" />
                         </div>
                       </div>
                     </div>
@@ -484,14 +494,14 @@ http://miradontsoa.com
                       <div class="col-12 col-md-12 col-lg-8 text-right">
                         <div class="">
                           <!-- title and description -->
-                          <div class="title-desc">
+                          <div class="title-desc" align="right">
                             <div class="anim-2">
                               <h1 class="display-6 display-title display-decor">Natural / Resin Table</h1>
                               <p>
                                 If you are looking for a table for the living room, workplace, dining area, or commercial place and want to get a natural impression in combination with art, a resin table is a suitable choice. Combining a
                                 natural wood table with resin can give a luxurious and unique appearance to your room. With a wide selection of resin colours to your liking, this table can easily match the mood of the area you are creating.
                               </p>
-                              <!-- <hr class="border light text-right" /> -->
+                              <hr class="border-light " />
                             </div>
                           </div>
 
@@ -582,11 +592,12 @@ http://miradontsoa.com
                 <!--Section description-->
                 <!-- <form action="/contact" methods="post"> -->
                 <form action="{{ route('store') }}" method="post">
+                <!-- {{ route('store') }} -->
                     @csrf
                     <div class="row">
                         <div class="col">
                             <div class="mb-4">
-                                <input name="nama" style="background-color: #000000" type="text" class="form-control rounded-top @error('name') is-invalid @enderror" id="name" placeholder="Name" />
+                                <input name="nama" style="background-color: #000000" type="text" class="form-control rounded-top @error('name') is-invalid @enderror" id="nama" placeholder="Name" />
                                 @error ('name')
                                 <div class="invalid-feedback">
                                     Please choose a Name
@@ -601,33 +612,31 @@ http://miradontsoa.com
                         </div>
                     </div>
                     <div class="mb-4">
-                        <textarea name="Message" style="background-color: #000000" type="text" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Message"></textarea>
+                        <textarea name="Message" style="background-color: #000000" type="text" class="form-control" id="Message" rows="3" placeholder="Message"></textarea>
                     </div>
           
-                        <button class="col-md-12 btn btn-secondary" type="submit"> Contact Us </button>
-                    </form>
+                  </form>
+                  <button class="col-md-12 btn btn-secondary" id="save" type="submit" > Contact Us </button>
                     <!-- <div class="mb-4 text-center">
                         <button type="submit" class="col-md-12 btn btn-secondary" >CONTACT US</button>
                     </div> -->
-                <!-- </form> -->
-                
-              </div>
+                <!-- </form> --> </div>
             </div>
             <!--/.Card-->
+            <center>
+              <a href="//linkedin.com/miradontsoa" class="btn-social mr-2 mt-5">
+                <i class="bi bi-linkedin"></i>
+              </a>
+              <a href="//facebook.com/miradontsoa" class="btn-social mr-2 mt-5">
+                <i class="icon fa fa-facebook"></i>
+              </a>
+              <a href="//youtube.com/miradontsoa" class="btn-social mr-2 mt-5">
+                <i class="bi bi-youtube"></i>
+              </a>
+            </center>
           </div>
           <!-- </div> -->
           <div class="section-aside small-relative aside-middle"></div>
-
-          <!-- Arrows scroll down/up -->
-          <footer class="section-footer scrolldown">
-            <a class="down">
-              <span class="btn btn-arrow">
-                <span class="icon">
-                  <span class="arrow-down"></span>
-                </span>
-              </span>
-            </a>
-          </footer>
         </div>
         <!-- End of section wrapper -->
       </div>
@@ -652,7 +661,49 @@ http://miradontsoa.com
     <!-- Form script -->
     <script src="{{asset('js/form_script.js')}}"></script>
 
+    <!-- Sweet Alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.20/dist/sweetalert2.all.min.js"></script>
+
     <!-- Javascript main files -->
     <script src="{{asset('js/main.js')}}"></script>
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <!-- script jquery versi offline-->
+    <!-- <script src="{{asset('js/jquery.main.js')}}"></script> -->
+    <!-- script jquery versi online -->
+    <!-- <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script> -->
+    <script>
+      $('#save').click(function(){
+        var nama =$("#nama").val();
+        var email =$("#email").val();
+        var Message =$("#Message").val();
+        var token=$("#input[name=_token]").val();
+        $.ajax({
+          type:"post",
+          url:"{{url('store')}}",
+          headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+          data: {
+            nama: nama,
+            email:email,
+            Message:Message,
+            _token:token
+          },
+
+          success:function(data, headers){
+            // alert('Data Berhasil Disimpan')
+            Swal.fire(
+              'Good job!',
+              'You clicked the button!',
+              'success',
+              )
+              // location.reload();
+              $("#nama").val('');
+              $("#email").val('');
+              $("#Message").val('');
+            // 
+          }
+        })
+      });
+    </script>
   </body>
 </html>

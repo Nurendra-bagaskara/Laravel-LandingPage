@@ -38,8 +38,12 @@ http://miradontsoa.com
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
 
+    <!-- token jquery -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
     <!-- Web fonts and Web Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="./fonts/opensans/stylesheet.css" />
     <link rel="stylesheet" href="./fonts/montserrat/stylesheet.css" />
     <link rel="stylesheet" href="./fonts/playfair/stylesheet.css" />
@@ -397,7 +401,7 @@ http://miradontsoa.com
                       <div class="col-12 col-md-12 col-lg-8 text-right center-v">
                         <div class="">
                           <!-- title and description -->
-                          <div class="title-desc">
+                          <div class="title-desc" align="right">
                             <div class="anim-2">
                               <h2 class="display-4 display-title display-decor">Coffee Beans</h2>
                               <p>
@@ -405,13 +409,13 @@ http://miradontsoa.com
                                 various flavour notes.
                                 <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, impedit tenetur beatae mollitia distinctio dolores ab explicabo in aut, perferendis vero similique. -->
                               </p>
+                              <hr class="border-light" />
                             </div>
                           </div>
 
                           <!-- Action button -->
                         </div>
                       </div>
-                      <hr class="border-light" />
                     </div>
                   </div>
                 </div>
@@ -487,7 +491,7 @@ http://miradontsoa.com
       <!-- End of All Size-->
 
        <!-- Begin contact -->
-       <div style="background-image: url(./img/bg-commodity2.png); background-repeat: repeat-y; background-size: contain; background-position: right" class="section section-centered" data-section="contact">
+       <div style="background-image: url(./img/bg-commodity2.png); background-repeat: repeat-y; background-size: contain;" class="section section-centered" data-section="contact">
         <!-- Begin of section wrapper -->
         <div class="section-content col-md-6">
           <!-- content -->
@@ -506,7 +510,7 @@ http://miradontsoa.com
                     <div class="row">
                         <div class="col">
                             <div class="mb-4">
-                                <input name="nama" style="background-color: #000000" type="text" class="form-control rounded-top @error('name') is-invalid @enderror" id="name" placeholder="Name" />
+                                <input name="nama" style="background-color: #000000" type="text" class="form-control rounded-top @error('name') is-invalid @enderror" id="nama" placeholder="Name" />
                                 @error ('name')
                                 <div class="invalid-feedback">
                                     Please choose a Name
@@ -521,11 +525,11 @@ http://miradontsoa.com
                         </div>
                     </div>
                     <div class="mb-4">
-                        <textarea name="Message" style="background-color: #000000" type="text" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Message"></textarea>
+                        <textarea name="Message" style="background-color: #000000" type="text" class="form-control" id="Message" rows="3" placeholder="Message"></textarea>
                     </div>
           
-                        <button class="col-md-12 btn btn-secondary" type="submit"> Contact Us </button>
-                    </form>
+                  </form>
+                  <button class="col-md-12 btn btn-secondary" id="save" type="submit"> Contact Us </button>
                     <!-- <div class="mb-4 text-center">
                         <button type="submit" class="col-md-12 btn btn-secondary" >CONTACT US</button>
                     </div> -->
@@ -533,21 +537,25 @@ http://miradontsoa.com
                 
               </div>
             </div>
+            
             <!--/.Card-->
+            <center>
+              <a href="//linkedin.com/miradontsoa" class="btn-social mr-2 mt-5">
+                <i class="bi bi-linkedin"></i>
+              </a>
+              <a href="//facebook.com/miradontsoa" class="btn-social mr-2 mt-5">
+                <i class="icon fa fa-facebook"></i>
+              </a>
+              <a href="//youtube.com/miradontsoa" class="btn-social mr-2 mt-5">
+                <i class="bi bi-youtube"></i>
+              </a>
+            </center>
           </div>
           <!-- </div> -->
           <div class="section-aside small-relative aside-middle"></div>
 
           <!-- Arrows scroll down/up -->
-          <footer class="section-footer scrolldown">
-            <a class="down">
-              <span class="btn btn-arrow">
-                <span class="icon">
-                  <span class="arrow-down"></span>
-                </span>
-              </span>
-            </a>
-          </footer>
+        
         </div>
         <!-- End of section wrapper -->
       </div>
@@ -568,8 +576,43 @@ http://miradontsoa.com
 
     <!-- Form script -->
     <script src="./js/form_script.js"></script>
+     <!-- Sweet Alert -->
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.20/dist/sweetalert2.all.min.js"></script>
 
     <!-- Javascript main files -->
     <script src="./js/main.js"></script>
+    <script>
+      $('#save').click(function(){
+        var nama =$("#nama").val();
+        var email =$("#email").val();
+        var Message =$("#Message").val();
+        var token=$("#input[name=_token]").val();
+        $.ajax({
+          type:"post",
+          url:"{{url('store')}}",
+          headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+          data: {
+            nama: nama,
+            email:email,
+            Message:Message,
+            _token:token
+          },
+
+          success:function(data, headers){
+            // alert('Data Berhasil Disimpan')
+            Swal.fire(
+              'Good job!',
+              'You clicked the button!',
+              'success',
+              )
+              // location.reload();
+              $("#nama").val('');
+              $("#email").val('');
+              $("#Message").val('');
+            // 
+          }
+        })
+      });
+    </script>
   </body>
 </html>
