@@ -14,6 +14,9 @@ use App\Http\Controllers\ContactController;
 |
 */
 
+Route::get('/Home', function () {
+    return view('Home');
+});
 Route::get('/Timber', function () {
     return view('Timber');
 });
