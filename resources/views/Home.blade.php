@@ -38,6 +38,9 @@ http://miradontsoa.com
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
 
+     <!-- token jquery -->
+     <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
     <!-- Web fonts and Web Icons -->
     <link rel="stylesheet" href="./fonts/opensans/stylesheet.css" />
@@ -891,34 +894,34 @@ http://miradontsoa.com
                   <div class="message-form">
                     <div class="form-container form-container-card">
                       <!-- Message form container -->
-                      <form class="send_message_form message form" method="post" action="ajaxserver/serverfile.php" id="message_form">
+                      <form method="post" action="{{ route('store') }}" >
                         <div class="form-group name">
-                          <input id="mes-name" name="name" type="text" placeholder="Name" class="form-control form-control-outline thick form-success-clean" required />
+                          <input id="nama" name="nama" type="text" placeholder="Name" class="form-control form-control-outline thick form-success-clean" required />
                         </div>
                         <div class="form-group email">
-                          <input id="mes-email" type="email" placeholder="Email" name="email" class="form-control form-control-outline thick form-success-clean" required />
+                          <input id="email" type="email" placeholder="Email" name="email" class="form-control form-control-outline thick form-success-clean" required />
                         </div>
                         <div class="form-group no-border">
-                          <textarea id="mes-text" placeholder="Message ..." name="message" class="form-control form-control-outline thick form-success-clean" required></textarea>
+                          <textarea id="Message" placeholder="Message ..." name="Message" class="form-control form-control-outline thick form-success-clean" required></textarea>
 
-                          <div>
+                          <!-- <div>
                             <p class="message-ok invisible form-text-feedback form-success-visible">Your message has been sent, thank you.</p>
-                          </div>
+                          </div> -->
                         </div>
 
-                        <div class="btns text-left d-flex justify-content-between">
-                          <a class="btn btn-arrow" href="#contact/information">
-                            <span class="icon">
-                              <span class="arrow-left"></span>
-                            </span>
-                            <span class="text">Information</span>
-                          </a>
-                          <button id="submit-message" class="btn btn-outline email_b" name="submit_message">
-                            <span class="txt">Send Now</span>
-                            <span class="arrow-icon"></span>
-                          </button>
-                        </div>
-                      </form>
+                    </form>
+                    <div class="btns text-left d-flex justify-content-between">
+                      <a class="btn btn-arrow" href="#contact/information">
+                        <span class="icon">
+                          <span class="arrow-left"></span>
+                        </span>
+                        <span class="text">Information</span>
+                      </a>
+                      <button id="submit-message" class="btn btn-outline email_b" type="submit" name="submit_message">
+                        <span class="txt">Send Now</span>
+                        <span class="arrow-icon"></span>
+                      </button>
+                    </div>
                     </div>
                   </div>
                   <!-- end of message container -->
@@ -1023,5 +1026,41 @@ http://miradontsoa.com
 
     <!-- Javascript main files -->
     <script src="./js/main.js"></script>
+    <!-- Sweet Alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.20/dist/sweetalert2.all.min.js"></script>
+
+    <script>
+      $('#submit-message').click(function(){
+        var nama =$("#nama").val();
+        var email =$("#email").val();
+        var Message =$("#Message").val();
+        var token=$("#input[name=_token]").val();
+        $.ajax({
+          type:"post",
+          url:"{{url('store')}}",
+          headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+          data: {
+            nama: nama,
+            email:email,
+            Message:Message,
+            _token:token
+          },
+
+          success:function(data, headers){
+            // alert('Data Berhasil Disimpan')
+            Swal.fire(
+              'Good job!',
+              'You clicked the button!',
+              'success',
+              )
+              // location.reload();
+              $("#nama").val('');
+              $("#email").val('');
+              $("#Message").val('');
+            // 
+          }
+        })
+      });
+    </script>
   </body>
 </html>
